@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight, Laptop } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +18,7 @@ interface ToolCardProps {
 export function ToolCard({ tool }: ToolCardProps) {
   const Icon = toolIconMap[tool.icon];
 
-  return (
+  const content = (
     <Card
       id={`tool-${tool.slug}`}
       tabIndex={-1}
@@ -28,10 +29,12 @@ export function ToolCard({ tool }: ToolCardProps) {
           <span className="border-border bg-secondary text-muted-foreground group-hover:border-primary/25 group-hover:text-primary flex size-10 items-center justify-center rounded-lg border transition-colors">
             <Icon className="size-5" aria-hidden="true" />
           </span>
-          <ArrowUpRight
-            className="text-muted-foreground/50 size-4"
-            aria-hidden="true"
-          />
+          {tool.availability === "available" ? (
+            <ArrowUpRight
+              className="text-muted-foreground/50 size-4"
+              aria-hidden="true"
+            />
+          ) : null}
         </div>
         <div className="space-y-2">
           <CardTitle className="font-mono text-base">{tool.title}</CardTitle>
@@ -40,7 +43,13 @@ export function ToolCard({ tool }: ToolCardProps) {
           </CardDescription>
         </div>
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-1">
-          <Badge variant="secondary">Coming soon</Badge>
+          <Badge
+            variant={
+              tool.availability === "available" ? "default" : "secondary"
+            }
+          >
+            {tool.availability === "available" ? "Available" : "Coming soon"}
+          </Badge>
           {tool.browserOnly ? (
             <Badge variant="outline">
               <Laptop className="size-3" aria-hidden="true" />
@@ -51,4 +60,17 @@ export function ToolCard({ tool }: ToolCardProps) {
       </CardHeader>
     </Card>
   );
+
+  if (tool.availability === "available") {
+    return (
+      <Link
+        href={`/tools/${tool.slug}`}
+        className="focus-visible:ring-ring focus-visible:ring-offset-background rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }

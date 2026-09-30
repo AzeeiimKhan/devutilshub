@@ -1,12 +1,14 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { toolIconMap } from "@/tools/icon-map";
 import { tools } from "@/tools/registry";
+import type { ToolMetadata } from "@/types/tool";
 
 interface SearchFieldProps {
   variant?: "default" | "compact";
@@ -19,6 +21,7 @@ export function SearchField({
   className,
   id,
 }: SearchFieldProps) {
+  const router = useRouter();
   const generatedId = useId();
   const inputId = id ?? `tool-search-${generatedId}`;
   const resultsId = `${inputId}-results`;
@@ -38,10 +41,16 @@ export function SearchField({
     );
   }, [query]);
 
-  function selectTool(slug: string, title: string) {
-    setQuery(title);
+  function selectTool(tool: ToolMetadata) {
+    setQuery(tool.title);
     setIsOpen(false);
-    const card = document.getElementById(`tool-${slug}`);
+
+    if (tool.availability === "available") {
+      router.push(`/tools/${tool.slug}`);
+      return;
+    }
+
+    const card = document.getElementById(`tool-${tool.slug}`);
     card?.scrollIntoView({ behavior: "smooth", block: "center" });
     card?.focus({ preventScroll: true });
   }
@@ -114,7 +123,7 @@ export function SearchField({
                   <li key={tool.slug}>
                     <button
                       type="button"
-                      onClick={() => selectTool(tool.slug, tool.title)}
+                      onClick={() => selectTool(tool)}
                       className="hover:bg-accent focus-visible:bg-accent focus-visible:ring-ring flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left outline-none focus-visible:ring-2"
                     >
                       <Icon
@@ -126,7 +135,9 @@ export function SearchField({
                           {tool.title}
                         </span>
                         <span className="text-muted-foreground block truncate text-xs">
-                          Coming soon
+                          {tool.availability === "available"
+                            ? "Available"
+                            : "Coming soon"}
                         </span>
                       </span>
                       <ArrowRight
