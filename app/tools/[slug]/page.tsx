@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { JsonFormatterTool } from "@/features/json-formatter/components/json-formatter-tool";
+import { JsonValidatorTool } from "@/features/json-validator/components/json-validator-tool";
 import {
   RelatedTools,
   ToolCommonMistakes,
@@ -58,12 +59,23 @@ export default async function ToolPage({ params }: ToolPageProps) {
       <div className="container-shell">
         {tool.slug === "json-formatter" ? (
           <JsonFormatterTool tool={tool} />
-        ) : (
-          notFound()
-        )}
-        <ToolCommonMistakes mistakes={tool.commonMistakes} />
+        ) : null}
+        {tool.slug === "json-validator" ? (
+          <JsonValidatorTool tool={tool} />
+        ) : null}
+        <ToolCommonMistakes
+          mistakes={tool.commonMistakes}
+          title={
+            tool.slug === "json-validator" ? "Common JSON errors" : undefined
+          }
+        />
         <RelatedTools slugs={tool.relatedTools} />
-        <ToolFAQ items={tool.faq} />
+        <ToolFAQ
+          items={tool.faq}
+          title={
+            tool.slug === "json-validator" ? "About JSON validation" : undefined
+          }
+        />
       </div>
     </ToolPageShell>
   );

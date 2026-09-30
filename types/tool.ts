@@ -13,6 +13,7 @@ export interface ToolExample {
   title: string;
   description: string;
   input: string;
+  kind?: "valid" | "invalid";
 }
 
 export interface ToolCommonMistake {

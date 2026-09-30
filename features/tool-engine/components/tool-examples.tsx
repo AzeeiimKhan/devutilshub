@@ -1,5 +1,6 @@
 import { ArrowDownToLine } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import type { ToolExample } from "@/types/tool";
 
@@ -36,9 +37,23 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
           >
             <Card className="group-hover:border-primary/35 h-full p-5 transition-colors motion-reduce:transition-none">
               <div className="flex items-start justify-between gap-3">
-                <span className="text-foreground font-mono text-xs font-semibold">
-                  {example.title}
-                </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-foreground font-mono text-xs font-semibold">
+                    {example.title}
+                  </span>
+                  {example.kind ? (
+                    <Badge
+                      variant="outline"
+                      className={
+                        example.kind === "valid"
+                          ? "border-success/30 bg-success/8 text-success"
+                          : "border-error/30 bg-error/8 text-error"
+                      }
+                    >
+                      {example.kind}
+                    </Badge>
+                  ) : null}
+                </div>
                 <ArrowDownToLine
                   className="text-muted-foreground group-hover:text-primary size-4 shrink-0"
                   aria-hidden="true"

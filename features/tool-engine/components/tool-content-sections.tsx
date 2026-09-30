@@ -9,8 +9,10 @@ import type { ToolCommonMistake, ToolFaqItem } from "@/types/tool";
 
 export function ToolCommonMistakes({
   mistakes,
+  title = "Common JSON mistakes",
 }: {
   mistakes: ToolCommonMistake[];
+  title?: string;
 }) {
   return (
     <section className="mt-20 sm:mt-24" aria-labelledby="common-mistakes-title">
@@ -22,7 +24,7 @@ export function ToolCommonMistakes({
           id="common-mistakes-title"
           className="text-foreground text-2xl font-semibold tracking-[-0.025em]"
         >
-          Common JSON mistakes
+          {title}
         </h2>
       </div>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -106,7 +108,13 @@ export function RelatedTools({ slugs }: { slugs: string[] }) {
   );
 }
 
-export function ToolFAQ({ items }: { items: ToolFaqItem[] }) {
+export function ToolFAQ({
+  items,
+  title = "About JSON formatting",
+}: {
+  items: ToolFaqItem[];
+  title?: string;
+}) {
   return (
     <section className="mt-20 sm:mt-24" aria-labelledby="tool-faq-title">
       <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
@@ -118,7 +126,7 @@ export function ToolFAQ({ items }: { items: ToolFaqItem[] }) {
             id="tool-faq-title"
             className="text-foreground mt-3 text-2xl font-semibold tracking-[-0.025em] sm:text-3xl"
           >
-            About JSON formatting
+            {title}
           </h2>
         </div>
         <div className="divide-border border-border divide-y border-y">
