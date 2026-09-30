@@ -118,19 +118,121 @@ export const tools: ToolMetadata[] = [
     slug: "json-validator",
     title: "JSON Validator",
     description:
-      "Check JSON structure and surface syntax issues with precise, useful feedback.",
+      "Validate JSON locally in your browser with useful syntax feedback and no uploads.",
     category: "json",
     icon: "check-braces",
     keywords: ["json", "validate", "lint", "syntax"],
     featured: true,
     popular: true,
     browserOnly: true,
-    availability: "coming-soon",
+    availability: "available",
     badges: ["browser-only", "privacy-first"],
-    examples: [],
-    commonMistakes: [],
-    relatedTools: [],
-    faq: [],
+    examples: [
+      {
+        id: "valid-object",
+        title: "Valid object",
+        description: "A small object with common JSON value types.",
+        input: '{"name":"DevUtilsHub","browserOnly":true,"version":1}',
+        kind: "valid",
+      },
+      {
+        id: "valid-array",
+        title: "Valid array",
+        description: "An array containing several JSON objects.",
+        input: '[{"id":1,"status":"ready"},{"id":2,"status":"pending"}]',
+        kind: "valid",
+      },
+      {
+        id: "nested-json",
+        title: "Nested JSON",
+        description: "A valid object with nested arrays and objects.",
+        input:
+          '{"user":{"name":"John","roles":["developer","reviewer"],"active":true}}',
+        kind: "valid",
+      },
+      {
+        id: "trailing-comma",
+        title: "Trailing comma",
+        description: "An extra comma before the closing brace.",
+        input: '{"name":"DevUtilsHub",}',
+        kind: "invalid",
+      },
+      {
+        id: "missing-bracket",
+        title: "Missing bracket",
+        description: "An array without its closing bracket.",
+        input: '{"items":[1,2,3}',
+        kind: "invalid",
+      },
+      {
+        id: "single-quotes",
+        title: "Single quotes",
+        description: "JavaScript-style strings are not valid JSON.",
+        input: "{'name':'DevUtilsHub'}",
+        kind: "invalid",
+      },
+    ],
+    commonMistakes: [
+      {
+        title: "Trailing comma",
+        description: "Remove the comma before a closing brace or bracket.",
+        example: '{"enabled": true,}',
+      },
+      {
+        title: "Missing closing brace or bracket",
+        description: "Each opening object or array delimiter needs a match.",
+        example: '{"items": [1, 2, 3}',
+      },
+      {
+        title: "Unquoted keys",
+        description: "JSON property names must use double quotes.",
+        example: '{status: "ready"}',
+      },
+      {
+        title: "Single quotes",
+        description:
+          "Use double quotes around JSON strings and property names.",
+        example: "{'status': 'ready'}",
+      },
+      {
+        title: "Unexpected token",
+        description: "Check near the reported location for an extra character.",
+        example: '{"count": @}',
+      },
+      {
+        title: "Comments inside JSON",
+        description: "Standard JSON does not support line or block comments.",
+        example: '{"enabled": true // remove this comment\n}',
+      },
+    ],
+    relatedTools: [
+      "json-formatter",
+      "json-compare",
+      "base64-encode-decode",
+      "jwt-decoder",
+    ],
+    faq: [
+      {
+        question: "What is JSON validation?",
+        answer:
+          "JSON validation checks whether text follows JSON syntax, including correct quotes, commas, values, braces, and brackets.",
+      },
+      {
+        question: "Does validation upload my JSON?",
+        answer:
+          "No. Validation runs entirely in your browser. Your JSON is never uploaded or sent to DevUtilsHub.",
+      },
+      {
+        question: "Why is my JSON invalid?",
+        answer:
+          "Common causes include trailing commas, single quotes, unquoted property names, comments, and missing closing braces or brackets.",
+      },
+      {
+        question: "What is the difference between validation and formatting?",
+        answer:
+          "Validation checks syntax and explains errors. Formatting parses valid JSON and rewrites it with consistent indentation for readability.",
+      },
+    ],
   },
   {
     slug: "json-compare",
