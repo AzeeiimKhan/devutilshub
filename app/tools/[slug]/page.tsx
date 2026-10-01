@@ -5,6 +5,7 @@ import { Base64Tool } from "@/features/base64/components/base64-tool";
 import { JsonCompareTool } from "@/features/json-compare/components/json-compare-tool";
 import { JsonFormatterTool } from "@/features/json-formatter/components/json-formatter-tool";
 import { JsonValidatorTool } from "@/features/json-validator/components/json-validator-tool";
+import { JwtDecoderTool } from "@/features/jwt-decoder/components/jwt-decoder-tool";
 import { UrlEncodingTool } from "@/features/url-encoding/components/url-encoding-tool";
 import {
   RelatedTools,
@@ -71,6 +72,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
         {tool.slug === "url-encode-decode" ? (
           <UrlEncodingTool tool={tool} />
         ) : null}
+        {tool.slug === "jwt-decoder" ? <JwtDecoderTool tool={tool} /> : null}
         <ToolCommonMistakes
           mistakes={tool.commonMistakes}
           title={
@@ -82,7 +84,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                   ? "Base64 essentials"
                   : tool.slug === "url-encode-decode"
                     ? "URL encoding essentials"
-                    : undefined
+                    : tool.slug === "jwt-decoder"
+                      ? "JWT decoding essentials"
+                      : undefined
           }
         />
         <RelatedTools slugs={tool.relatedTools} />
@@ -97,7 +101,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                   ? "About Base64"
                   : tool.slug === "url-encode-decode"
                     ? "About URL encoding"
-                    : undefined
+                    : tool.slug === "jwt-decoder"
+                      ? "About JWT decoding"
+                      : undefined
           }
         />
       </div>

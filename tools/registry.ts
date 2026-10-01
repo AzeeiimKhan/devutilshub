@@ -640,19 +640,141 @@ export const tools: ToolMetadata[] = [
     slug: "jwt-decoder",
     title: "JWT Decoder",
     description:
-      "Inspect JWT headers and payload claims locally without uploading tokens.",
+      "Decode JWT headers, payloads, and claims locally with no uploads—signature not verified.",
     category: "authentication-developer",
     icon: "key",
     keywords: ["jwt", "token", "decode", "claims", "authentication"],
     featured: false,
-    popular: false,
+    popular: true,
     browserOnly: true,
-    availability: "coming-soon",
+    availability: "available",
     badges: ["browser-only", "privacy-first"],
-    examples: [],
-    commonMistakes: [],
-    relatedTools: [],
-    faq: [],
+    examples: [
+      {
+        id: "basic-jwt",
+        title: "Basic demonstration JWT",
+        description: "Harmless sample subject and name claims.",
+        input:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vLXVzZXIiLCJuYW1lIjoiRGV2VXRpbHNIdWIgRGVtbyJ9.ZGVtby1zaWduYXR1cmU",
+      },
+      {
+        id: "common-claims",
+        title: "Common time claims",
+        description: "Demonstrates issued-at and future expiration timestamps.",
+        input:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vLXVzZXIiLCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6NDEwMjQ0NDgwMH0.ZGVtby1zaWduYXR1cmU",
+      },
+      {
+        id: "expired-token",
+        title: "Expired timestamp",
+        description: "A demonstration payload with an expiration in the past.",
+        input:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vLXVzZXIiLCJleHAiOjE2MDAwMDAwMDB9.ZGVtby1zaWduYXR1cmU",
+      },
+      {
+        id: "future-not-before",
+        title: "Future not-before",
+        description: "A demonstration payload that is not active yet.",
+        input:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vLXVzZXIiLCJuYmYiOjQxMDI0NDQ4MDB9.ZGVtby1zaWduYXR1cmU",
+      },
+      {
+        id: "custom-claims",
+        title: "Custom claims",
+        description: "Nested, Boolean, null, Unicode, and emoji sample values.",
+        input:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZGV2ZWxvcGVyIiwibG9jYWxlIjoiaGktSU4iLCJtZXNzYWdlIjoi4KSo4KSu4KS44KWN4KSk4KWHIPCfkYsiLCJwcm9maWxlIjp7InRoZW1lIjoiZGFyayJ9LCJhY3RpdmUiOnRydWUsInNjb3JlIjpudWxsfQ.ZGVtby1zaWduYXR1cmU",
+      },
+      {
+        id: "invalid-jwt",
+        title: "Invalid JWT",
+        description: "An intentionally malformed value for testing feedback.",
+        input: "not-a-jwt",
+        kind: "invalid",
+      },
+    ],
+    commonMistakes: [
+      {
+        title: "Three sections",
+        description:
+          "A standard JWT normally contains header, payload, and signature sections separated by dots.",
+        example: "header.payload.signature",
+      },
+      {
+        title: "Base64URL, not Base64",
+        description:
+          "JWT sections use URL-safe characters and commonly omit padding.",
+      },
+      {
+        title: "Encoded, not encrypted",
+        description:
+          "Header and payload contents can be decoded without a password or key.",
+      },
+      {
+        title: "Decoding is not verification",
+        description:
+          "Readable claims are not proof that a token or its issuer is authentic.",
+      },
+      {
+        title: "Signature not verified",
+        description:
+          "A signature only provides assurance after cryptographic verification by a trusted party.",
+      },
+      {
+        title: "Unix time claims",
+        description:
+          "exp, iat, and nbf commonly contain Unix timestamps measured in seconds.",
+      },
+      {
+        title: "Protect production tokens",
+        description:
+          "Avoid exposing live access tokens unless you understand the security implications.",
+      },
+    ],
+    relatedTools: [
+      "json-formatter",
+      "json-validator",
+      "base64",
+      "url-encode-decode",
+      "json-compare",
+    ],
+    faq: [
+      {
+        question: "What is a JWT?",
+        answer:
+          "A JSON Web Token is a compact format for carrying JSON claims in Base64URL-encoded sections, often alongside a cryptographic signature.",
+      },
+      {
+        question: "Can this tool verify a JWT?",
+        answer:
+          "No. DevUtilsHub only decodes and inspects the token. It does not verify the signature, issuer, audience, or trustworthiness.",
+      },
+      {
+        question: "Is a JWT encrypted?",
+        answer:
+          "A typical signed JWT is encoded, not encrypted. Anyone holding it can decode its header and payload.",
+      },
+      {
+        question: "What are the three parts of a JWT?",
+        answer:
+          "They are the Base64URL-encoded header, Base64URL-encoded payload, and encoded signature, separated by dots.",
+      },
+      {
+        question: "What do exp, iat, and nbf mean?",
+        answer:
+          "exp is expiration time, iat is issued-at time, and nbf is not-before time. They are commonly Unix timestamps in seconds.",
+      },
+      {
+        question: "Is my JWT uploaded?",
+        answer:
+          "No. Decoding happens entirely in your browser. The token is not uploaded or sent to DevUtilsHub.",
+      },
+      {
+        question: "Should I paste a production access token here?",
+        answer:
+          "Avoid exposing production credentials unnecessarily. Browser-local processing reduces transmission risk but does not make sharing sensitive tokens consequence-free.",
+      },
+    ],
   },
 ];
 
