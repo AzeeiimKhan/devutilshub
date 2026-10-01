@@ -5,6 +5,7 @@ import { Base64Tool } from "@/features/base64/components/base64-tool";
 import { JsonCompareTool } from "@/features/json-compare/components/json-compare-tool";
 import { JsonFormatterTool } from "@/features/json-formatter/components/json-formatter-tool";
 import { JsonValidatorTool } from "@/features/json-validator/components/json-validator-tool";
+import { UrlEncodingTool } from "@/features/url-encoding/components/url-encoding-tool";
 import {
   RelatedTools,
   ToolCommonMistakes,
@@ -67,6 +68,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
         ) : null}
         {tool.slug === "json-compare" ? <JsonCompareTool tool={tool} /> : null}
         {tool.slug === "base64" ? <Base64Tool tool={tool} /> : null}
+        {tool.slug === "url-encode-decode" ? (
+          <UrlEncodingTool tool={tool} />
+        ) : null}
         <ToolCommonMistakes
           mistakes={tool.commonMistakes}
           title={
@@ -76,7 +80,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                 ? "Comparison notes"
                 : tool.slug === "base64"
                   ? "Base64 essentials"
-                  : undefined
+                  : tool.slug === "url-encode-decode"
+                    ? "URL encoding essentials"
+                    : undefined
           }
         />
         <RelatedTools slugs={tool.relatedTools} />
@@ -89,7 +95,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                 ? "About JSON comparison"
                 : tool.slug === "base64"
                   ? "About Base64"
-                  : undefined
+                  : tool.slug === "url-encode-decode"
+                    ? "About URL encoding"
+                    : undefined
           }
         />
       </div>
