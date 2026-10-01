@@ -487,19 +487,154 @@ export const tools: ToolMetadata[] = [
     slug: "url-encode-decode",
     title: "URL Encode / Decode",
     description:
-      "Encode and decode URL components locally without sending content to a server.",
+      "Encode and decode URL components with browser-only percent encoding, local processing, and no uploads—encoding, not encryption.",
     category: "encoding",
     icon: "wrench",
     keywords: ["url", "encode", "decode", "percent", "uri"],
     featured: false,
-    popular: false,
+    popular: true,
     browserOnly: true,
-    availability: "coming-soon",
+    availability: "available",
     badges: ["browser-only", "privacy-first"],
-    examples: [],
-    commonMistakes: [],
-    relatedTools: [],
-    faq: [],
+    examples: [
+      {
+        id: "simple-text",
+        title: "Simple text",
+        description: "Encode a space in a short text value.",
+        input: "Hello World",
+        mode: "encode",
+      },
+      {
+        id: "query-parameter",
+        title: "Query parameter",
+        description: "Encode a value containing spaces and an ampersand.",
+        input: "search term & filters",
+        mode: "encode",
+      },
+      {
+        id: "special-characters",
+        title: "Special characters",
+        description: "Encode URL-reserved punctuation inside a component.",
+        input: "hello@example.com?test=1&mode=full",
+        mode: "encode",
+      },
+      {
+        id: "unicode",
+        title: "Unicode",
+        description: "Encode non-Latin text using UTF-8 percent sequences.",
+        input: "नमस्ते दुनिया",
+        mode: "encode",
+      },
+      {
+        id: "emoji",
+        title: "Emoji",
+        description: "Encode an emoji alongside ordinary text.",
+        input: "DevUtilsHub 🚀",
+        mode: "encode",
+      },
+      {
+        id: "already-encoded",
+        title: "Already encoded",
+        description: "Decode a percent-encoded space.",
+        input: "hello%20world",
+        mode: "decode",
+      },
+      {
+        id: "url-component",
+        title: "URL component",
+        description: "Encode a location used as a parameter value.",
+        input: "Mumbai & Maharashtra",
+        mode: "encode",
+      },
+      {
+        id: "multiline-text",
+        title: "Multiline text",
+        description: "Encode line breaks and punctuation predictably.",
+        input: "first line\nsecond line & notes",
+        mode: "encode",
+      },
+    ],
+    commonMistakes: [
+      {
+        title: "Encoding, not encryption",
+        description:
+          "Percent encoding is reversible and provides no confidentiality or security.",
+      },
+      {
+        title: "Spaces become %20",
+        description:
+          "encodeURIComponent represents spaces as %20 rather than a plus sign.",
+        example: "hello%20world",
+      },
+      {
+        title: "Hexadecimal bytes",
+        description:
+          "Percent sequences represent encoded UTF-8 bytes using hexadecimal values.",
+        example: "%E2%9C%93",
+      },
+      {
+        title: "Components are not full URLs",
+        description:
+          "Encoding an entire URL also escapes structural separators such as :, /, ?, and &.",
+      },
+      {
+        title: "Avoid accidental double encoding",
+        description:
+          "Encoding an existing % sequence turns the percent sign into %25.",
+        example: "%2520",
+      },
+      {
+        title: "Malformed sequences",
+        description:
+          "Incomplete or non-hexadecimal percent sequences cannot be decoded.",
+        example: "abc%2G",
+      },
+    ],
+    relatedTools: [
+      "json-formatter",
+      "json-validator",
+      "json-compare",
+      "base64",
+      "jwt-decoder",
+    ],
+    faq: [
+      {
+        question: "What is URL encoding?",
+        answer:
+          "URL encoding, or percent encoding, represents characters as URL-safe UTF-8 byte sequences such as %20 for a space.",
+      },
+      {
+        question: "Is URL encoding encryption?",
+        answer:
+          "No. URL encoding is reversible and provides no confidentiality, authentication, password protection, or security.",
+      },
+      {
+        question: "Why are spaces encoded as %20?",
+        answer:
+          "encodeURIComponent uses percent encoding for spaces. A plus sign for spaces belongs to form-style application/x-www-form-urlencoded data.",
+      },
+      {
+        question:
+          "What is the difference between URL component encoding and encoding a full URL?",
+        answer:
+          "Components are individual values or path pieces. Full URLs contain separators such as :, /, ?, and &, whose structural meaning should usually be preserved.",
+      },
+      {
+        question: "Can URL encoding handle Unicode?",
+        answer:
+          "Yes. Browser-native component encoding converts Unicode text into UTF-8 percent sequences and decodes them back to text.",
+      },
+      {
+        question: "What happens if the input is already encoded?",
+        answer:
+          "Encoding it again will encode percent signs as %25. Decode first unless double encoding is intentional.",
+      },
+      {
+        question: "Is my input uploaded?",
+        answer:
+          "No. Encoding and decoding happen entirely in your browser. Your input is never uploaded or sent to DevUtilsHub.",
+      },
+    ],
   },
   {
     slug: "jwt-decoder",
