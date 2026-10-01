@@ -6,6 +6,7 @@ import { JsonCompareTool } from "@/features/json-compare/components/json-compare
 import { JsonFormatterTool } from "@/features/json-formatter/components/json-formatter-tool";
 import { JsonValidatorTool } from "@/features/json-validator/components/json-validator-tool";
 import { JwtDecoderTool } from "@/features/jwt-decoder/components/jwt-decoder-tool";
+import { TimestampConverterTool } from "@/features/timestamp-converter/components/timestamp-converter-tool";
 import { UrlEncodingTool } from "@/features/url-encoding/components/url-encoding-tool";
 import { UuidGeneratorTool } from "@/features/uuid-generator/components/uuid-generator-tool";
 import {
@@ -75,6 +76,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
         ) : null}
         {tool.slug === "jwt-decoder" ? <JwtDecoderTool tool={tool} /> : null}
         {tool.slug === "uuid-generator" ? <UuidGeneratorTool /> : null}
+        {tool.slug === "timestamp-converter" ? (
+          <TimestampConverterTool />
+        ) : null}
         <ToolCommonMistakes
           mistakes={tool.commonMistakes}
           title={
@@ -90,7 +94,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                       ? "JWT decoding essentials"
                       : tool.slug === "uuid-generator"
                         ? "UUID generation essentials"
-                        : undefined
+                        : tool.slug === "timestamp-converter"
+                          ? "Unix time essentials"
+                          : undefined
           }
         />
         <RelatedTools slugs={tool.relatedTools} />
@@ -109,7 +115,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                       ? "About JWT decoding"
                       : tool.slug === "uuid-generator"
                         ? "About UUID v4"
-                        : undefined
+                        : tool.slug === "timestamp-converter"
+                          ? "About Unix timestamps"
+                          : undefined
           }
         />
       </div>
