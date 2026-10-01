@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Base64Tool } from "@/features/base64/components/base64-tool";
+import { HashGeneratorTool } from "@/features/hash-generator/components/hash-generator-tool";
 import { JsonCompareTool } from "@/features/json-compare/components/json-compare-tool";
 import { JsonFormatterTool } from "@/features/json-formatter/components/json-formatter-tool";
 import { JsonValidatorTool } from "@/features/json-validator/components/json-validator-tool";
@@ -41,13 +42,13 @@ export async function generateMetadata({
   }
 
   return {
-    title: tool.title,
+    title: tool.seoTitle ?? tool.title,
     description: tool.description,
     alternates: {
       canonical: `/tools/${tool.slug}`,
     },
     openGraph: {
-      title: `${tool.title} — DevUtilsHub`,
+      title: `${tool.seoTitle ?? tool.title} — DevUtilsHub`,
       description: tool.description,
       type: "website",
     },
@@ -79,6 +80,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
         {tool.slug === "timestamp-converter" ? (
           <TimestampConverterTool />
         ) : null}
+        {tool.slug === "hash-generator" ? (
+          <HashGeneratorTool tool={tool} />
+        ) : null}
         <ToolCommonMistakes
           mistakes={tool.commonMistakes}
           title={
@@ -96,7 +100,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                         ? "UUID generation essentials"
                         : tool.slug === "timestamp-converter"
                           ? "Unix time essentials"
-                          : undefined
+                          : tool.slug === "hash-generator"
+                            ? "Hashing essentials"
+                            : undefined
           }
         />
         <RelatedTools slugs={tool.relatedTools} />
@@ -117,7 +123,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                         ? "About UUID v4"
                         : tool.slug === "timestamp-converter"
                           ? "About Unix timestamps"
-                          : undefined
+                          : tool.slug === "hash-generator"
+                            ? "About hashing"
+                            : undefined
           }
         />
       </div>

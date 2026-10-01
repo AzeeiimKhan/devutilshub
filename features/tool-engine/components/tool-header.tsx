@@ -8,6 +8,7 @@ const badgeContent: Record<ToolBadge, { label: string; icon: typeof Laptop }> =
   {
     "browser-only": { label: "Browser-only", icon: Laptop },
     "privacy-first": { label: "Privacy-first", icon: ShieldCheck },
+    "no-upload": { label: "No upload", icon: ShieldCheck },
   };
 
 interface ToolHeaderProps {

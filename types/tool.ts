@@ -13,7 +13,7 @@ export type ToolIconName =
 
 export type ToolAvailability = "available" | "coming-soon";
 
-export type ToolBadge = "browser-only" | "privacy-first";
+export type ToolBadge = "browser-only" | "privacy-first" | "no-upload";
 
 export interface ToolExample {
   id: string;
@@ -23,6 +23,7 @@ export interface ToolExample {
   secondaryInput?: string;
   kind?: "valid" | "invalid";
   mode?: "encode" | "decode";
+  algorithm?: "SHA-256" | "SHA-1" | "MD5";
 }
 
 export interface ToolCommonMistake {
@@ -41,6 +42,7 @@ export interface ToolMetadata {
   title: string;
   description: string;
   category: ToolCategory;
+  seoTitle?: string;
   icon: ToolIconName;
   keywords: string[];
   featured: boolean;

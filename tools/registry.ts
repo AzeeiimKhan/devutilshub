@@ -969,6 +969,131 @@ export const tools: ToolMetadata[] = [
       },
     ],
   },
+  {
+    slug: "hash-generator",
+    title: "Hash Generator",
+    seoTitle: "Hash Generator - SHA-256, SHA-1 & MD5",
+    description:
+      "Generate SHA-256, SHA-1, or MD5 hashes instantly in your browser.",
+    category: "utilities",
+    icon: "fingerprint",
+    keywords: [
+      "hash",
+      "hash generator",
+      "sha256",
+      "sha-256",
+      "sha1",
+      "sha-1",
+      "md5",
+      "checksum",
+    ],
+    featured: false,
+    popular: false,
+    browserOnly: true,
+    availability: "available",
+    badges: ["browser-only", "no-upload"],
+    examples: [
+      {
+        id: "hello-world",
+        title: "Hello World",
+        description: "A familiar greeting with SHA-256.",
+        input: "Hello World",
+        algorithm: "SHA-256",
+      },
+      {
+        id: "devutilshub",
+        title: "DevUtilsHub",
+        description: "A harmless identifier with legacy SHA-1.",
+        input: "DevUtilsHub",
+        algorithm: "SHA-1",
+      },
+      {
+        id: "short-sentence",
+        title: "Short sentence",
+        description: "A classic test sentence with legacy MD5.",
+        input: "The quick brown fox jumps over the lazy dog.",
+        algorithm: "MD5",
+      },
+      {
+        id: "unicode",
+        title: "Unicode & emoji",
+        description:
+          "UTF-8 text containing accents, non-Latin characters, and emoji.",
+        input: "Café · नमस्ते · こんにちは 🌍",
+        algorithm: "SHA-256",
+      },
+    ],
+    commonMistakes: [
+      {
+        title: "What is hashing?",
+        description:
+          "Hashing turns data into a fixed-length digest. The same input and algorithm always produce the same hash; small changes generally produce very different outputs.",
+      },
+      {
+        title: "Hashing vs encryption",
+        description:
+          "Cryptographic hashes are designed to be one-way and difficult to reverse. Encryption is designed to recover the original data with the appropriate key. A hash is not intended to be decrypted.",
+      },
+      {
+        title: "Which algorithm should I use?",
+        description:
+          "SHA-256 is a modern general-purpose cryptographic hash for many integrity and fingerprinting uses. MD5 and SHA-1 are provided for legacy compatibility.",
+      },
+      {
+        title: "Legacy algorithm warning",
+        description:
+          "SHA-1 is obsolete for modern security-sensitive applications. MD5 also has collision weaknesses and is unsuitable for modern security or password storage.",
+      },
+      {
+        title: "Passwords need dedicated algorithms",
+        description:
+          "Do not store passwords with these general-purpose hashes. Use dedicated password-hashing or KDF algorithms such as Argon2, bcrypt, scrypt, or PBKDF2.",
+      },
+      {
+        title: "Every byte matters",
+        description:
+          "Spaces, line endings, case, and Unicode normalization affect a digest. This tool hashes the UTF-8 text exactly as entered, without trimming or normalization.",
+      },
+    ],
+    relatedTools: [
+      "base64",
+      "jwt-decoder",
+      "json-formatter",
+      "url-encode-decode",
+    ],
+    faq: [
+      {
+        question: "What is a hash?",
+        answer:
+          "A hash is a fixed-length digest of input data. Hashes help fingerprint content and check integrity, and are also used within digital-signature systems. A plain hash alone does not prove authenticity.",
+      },
+      {
+        question: "Is hashing the same as encryption?",
+        answer:
+          "No. Encryption is reversible with the appropriate key. A cryptographic hash is normally a one-way transformation and is not intended to be decrypted.",
+      },
+      {
+        question: "Which hash algorithm should I use?",
+        answer:
+          "SHA-256 is the modern general-purpose choice among these options. Use SHA-1 and MD5 only for legacy compatibility, not modern security-sensitive applications. Passwords require dedicated password-hashing algorithms.",
+      },
+      {
+        question: "Is MD5 secure?",
+        answer:
+          "MD5 has practical collision weaknesses and is inappropriate for modern security or password storage. It can still reproduce checksums required by older systems.",
+      },
+      {
+        question: "Can a hash be reversed?",
+        answer:
+          "There is no decryption operation for a hash. However, predictable inputs can be guessed and hashed until a match is found, so hashing does not make a weak secret safe.",
+      },
+      {
+        question: "Are my inputs uploaded to a server?",
+        answer:
+          "No. Text is encoded and hashed locally in your browser, with no upload or external hashing service. Avoid pasting passwords, API keys, private keys, tokens, or other secrets into online tools.",
+      },
+    ],
+  },
 ];
 
 export const featuredTools = tools.filter((tool) => tool.featured);
