@@ -8,13 +8,23 @@ import type { ToolExample } from "@/types/tool";
 interface ToolExamplesProps {
   examples: ToolExample[];
   onSelect: (example: ToolExample) => void;
+  title?: string;
+  showInput?: boolean;
 }
 
-export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
+export function ToolExamples({
+  examples,
+  onSelect,
+  title = "Start with a realistic payload.",
+  showInput = false,
+}: ToolExamplesProps) {
   const hasPairedInputs = examples.some(
     (example) => example.secondaryInput !== undefined,
   );
   const hasModes = examples.some((example) => example.mode !== undefined);
+  const hasAlgorithms = examples.some(
+    (example) => example.algorithm !== undefined,
+  );
 
   return (
     <section className="mt-20 sm:mt-24" aria-labelledby="tool-examples-title">
@@ -26,7 +36,7 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
           id="tool-examples-title"
           className="text-foreground mt-3 text-2xl font-semibold tracking-[-0.025em] sm:text-3xl"
         >
-          Start with a realistic payload.
+          {title}
         </h2>
         <p className="text-muted-foreground mt-3 text-base leading-7">
           Choose an example to place it in the input panel. Nothing is sent over
@@ -38,7 +48,7 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
           "mt-8 grid gap-4 sm:grid-cols-2",
           hasPairedInputs
             ? "lg:grid-cols-3"
-            : hasModes
+            : hasModes || hasAlgorithms
               ? "lg:grid-cols-4"
               : "lg:grid-cols-5",
         )}
@@ -71,6 +81,9 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
                   {example.mode ? (
                     <Badge variant="outline">{example.mode}</Badge>
                   ) : null}
+                  {example.algorithm ? (
+                    <Badge variant="outline">{example.algorithm}</Badge>
+                  ) : null}
                 </div>
                 <ArrowDownToLine
                   className="text-muted-foreground group-hover:text-primary size-4 shrink-0"
@@ -80,6 +93,11 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
               <p className="text-muted-foreground mt-3 text-xs leading-5">
                 {example.description}
               </p>
+              {showInput ? (
+                <code className="border-border bg-background text-foreground mt-4 block rounded-md border p-3 font-mono text-xs leading-5 break-all whitespace-pre-wrap">
+                  {example.input}
+                </code>
+              ) : null}
             </Card>
           </button>
         ))}
