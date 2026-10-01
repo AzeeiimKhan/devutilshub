@@ -5,6 +5,7 @@ export type ToolIconName =
   | "binary"
   | "braces"
   | "check-braces"
+  | "clock"
   | "compare"
   | "fingerprint"
   | "key"

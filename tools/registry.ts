@@ -863,6 +863,112 @@ export const tools: ToolMetadata[] = [
       },
     ],
   },
+  {
+    slug: "timestamp-converter",
+    title: "Timestamp Converter",
+    description:
+      "Convert Unix timestamps in seconds or milliseconds to UTC and local date/time entirely in your browser.",
+    category: "utilities",
+    icon: "clock",
+    keywords: [
+      "timestamp",
+      "unix time",
+      "epoch",
+      "date",
+      "utc",
+      "milliseconds",
+    ],
+    featured: false,
+    popular: true,
+    browserOnly: true,
+    availability: "available",
+    badges: ["browser-only", "privacy-first"],
+    examples: [],
+    commonMistakes: [
+      {
+        title: "Seconds vs milliseconds",
+        description:
+          "Unix timestamps commonly use seconds, while JavaScript Date uses milliseconds. Always confirm the unit.",
+        example: "1704067200 s = 1704067200000 ms",
+      },
+      {
+        title: "An instant, not a timezone",
+        description:
+          "A timestamp identifies one moment. UTC and local time are different displays of that same moment.",
+      },
+      {
+        title: "Large numbers are normal",
+        description:
+          "Unix time is elapsed time since the epoch, so current values contain many digits.",
+      },
+      {
+        title: "UTC date input",
+        description:
+          "Choosing UTC interprets the entered wall-clock value at offset +00:00, not in your browser timezone.",
+      },
+      {
+        title: "Negative timestamps",
+        description:
+          "Values below zero represent instants before 1970-01-01T00:00:00Z.",
+        example: "-1 s = 1969-12-31T23:59:59.000Z",
+      },
+      {
+        title: "JavaScript Date range",
+        description:
+          "Extremely distant values fall outside the range JavaScript Date can represent and are rejected.",
+      },
+      {
+        title: "Fractional seconds",
+        description:
+          "A decimal seconds value represents sub-second precision; .123 means 123 milliseconds.",
+      },
+    ],
+    relatedTools: [
+      "uuid-generator",
+      "json-formatter",
+      "json-validator",
+      "jwt-decoder",
+      "base64",
+      "url-encode-decode",
+    ],
+    faq: [
+      {
+        question: "What is a Unix timestamp?",
+        answer:
+          "A Unix timestamp measures elapsed time from 1970-01-01T00:00:00Z. It identifies an instant independently of how a timezone displays it.",
+      },
+      {
+        question: "What is the difference between seconds and milliseconds?",
+        answer:
+          "A millisecond timestamp is 1,000 times the corresponding whole-second timestamp. Decimal seconds can represent the same millisecond precision.",
+      },
+      {
+        question: "What timezone does Unix time use?",
+        answer:
+          "Unix time is anchored to the UTC epoch but the numeric timestamp itself has no timezone. Timezones only affect its human-readable display.",
+      },
+      {
+        question: "Can Unix timestamps be negative?",
+        answer:
+          "Yes. Negative values represent instants before the Unix epoch on 1970-01-01.",
+      },
+      {
+        question: "Why does the same timestamp show different local times?",
+        answer:
+          "Each timezone applies its own offset and daylight-saving rules while preserving the same underlying instant.",
+      },
+      {
+        question: "Does this tool send timestamps to a server?",
+        answer:
+          "No. Conversion, formatting, and current-time lookup all happen locally using your browser APIs.",
+      },
+      {
+        question: "How accurate are timestamps?",
+        answer:
+          "This tool preserves millisecond precision supported by JavaScript Date. Its current-time action is only as accurate as your device clock.",
+      },
+    ],
+  },
 ];
 
 export const featuredTools = tools.filter((tool) => tool.featured);
