@@ -84,12 +84,7 @@ export const tools: ToolMetadata[] = [
         example: '{"enabled": true // remove this comment\n}',
       },
     ],
-    relatedTools: [
-      "json-validator",
-      "json-compare",
-      "base64-encode-decode",
-      "jwt-decoder",
-    ],
+    relatedTools: ["json-validator", "json-compare", "base64", "jwt-decoder"],
     faq: [
       {
         question: "What does JSON formatting do?",
@@ -205,12 +200,7 @@ export const tools: ToolMetadata[] = [
         example: '{"enabled": true // remove this comment\n}',
       },
     ],
-    relatedTools: [
-      "json-formatter",
-      "json-compare",
-      "base64-encode-decode",
-      "jwt-decoder",
-    ],
+    relatedTools: ["json-formatter", "json-compare", "base64", "jwt-decoder"],
     faq: [
       {
         question: "What is JSON validation?",
@@ -320,12 +310,7 @@ export const tools: ToolMetadata[] = [
           "The tool compares parsed JSON values rather than lines or characters.",
       },
     ],
-    relatedTools: [
-      "json-formatter",
-      "json-validator",
-      "base64-encode-decode",
-      "jwt-decoder",
-    ],
+    relatedTools: ["json-formatter", "json-validator", "base64", "jwt-decoder"],
     faq: [
       {
         question: "How does JSON comparison work?",
@@ -355,15 +340,159 @@ export const tools: ToolMetadata[] = [
     ],
   },
   {
-    slug: "base64-encode-decode",
+    slug: "base64",
     title: "Base64 Encode / Decode",
     description:
-      "Encode or decode Base64 text locally without sending content to a server.",
+      "Encode and decode Base64 text locally in your browser with no uploads—encoding, not encryption.",
     category: "encoding",
     icon: "binary",
     keywords: ["base64", "encode", "decode", "text"],
     featured: true,
     popular: true,
+    browserOnly: true,
+    availability: "available",
+    badges: ["browser-only", "privacy-first"],
+    examples: [
+      {
+        id: "encode-hello-world",
+        title: "Hello World",
+        description: "Encode a short ASCII greeting.",
+        input: "Hello World",
+        mode: "encode",
+      },
+      {
+        id: "encode-json",
+        title: "JSON text",
+        description: "Encode a compact JSON object as UTF-8.",
+        input: '{"name":"DevUtilsHub","private":true}',
+        mode: "encode",
+      },
+      {
+        id: "encode-url",
+        title: "URL-like text",
+        description: "Encode text containing URL punctuation.",
+        input: "https://devutilshub.com/tools?mode=fast",
+        mode: "encode",
+      },
+      {
+        id: "encode-unicode",
+        title: "Unicode text",
+        description: "Encode accents, non-Latin text, and emoji correctly.",
+        input: "Café ☕ — こんにちは 🌍",
+        mode: "encode",
+      },
+      {
+        id: "encode-multiline",
+        title: "Multiline text",
+        description: "Preserve line breaks through a Base64 round trip.",
+        input: "first line\nsecond line",
+        mode: "encode",
+      },
+      {
+        id: "decode-hello-world",
+        title: "Hello World Base64",
+        description: "Decode a familiar Base64 value.",
+        input: "SGVsbG8gV29ybGQ=",
+        mode: "decode",
+      },
+      {
+        id: "decode-json",
+        title: "JSON Base64",
+        description: "Decode Base64 back into JSON text.",
+        input: "eyJzdGF0dXMiOiJyZWFkeSIsImNvdW50IjozfQ==",
+        mode: "decode",
+      },
+      {
+        id: "decode-unicode",
+        title: "Unicode Base64",
+        description: "Decode UTF-8 non-Latin text and emoji.",
+        input: "4KSo4KSu4KS44KWN4KSk4KWHIPCfkYs=",
+        mode: "decode",
+      },
+    ],
+    commonMistakes: [
+      {
+        title: "Encoding, not encryption",
+        description:
+          "Base64 is reversible representation and provides no confidentiality.",
+      },
+      {
+        title: "Not password protection",
+        description:
+          "Anyone can decode Base64 without a password or secret key.",
+      },
+      {
+        title: "Larger output",
+        description:
+          "Base64 typically increases data size by roughly one third.",
+      },
+      {
+        title: "No key required",
+        description:
+          "Decoding uses a public character mapping, not a cryptographic key.",
+      },
+      {
+        title: "Malformed input",
+        description:
+          "Unexpected characters, length, or padding can make Base64 invalid.",
+        example: "SGVsbG8===",
+      },
+      {
+        title: "UTF-8 matters",
+        description:
+          "Text must be converted to and from UTF-8 bytes to preserve Unicode.",
+      },
+    ],
+    relatedTools: [
+      "json-formatter",
+      "json-validator",
+      "json-compare",
+      "url-encode-decode",
+      "jwt-decoder",
+    ],
+    faq: [
+      {
+        question: "What is Base64?",
+        answer:
+          "Base64 represents bytes using a limited set of text characters, which is useful when data needs to travel through text-oriented systems.",
+      },
+      {
+        question: "Is Base64 encryption?",
+        answer:
+          "No. Base64 is encoding, not encryption. It provides no secrecy or protection because anyone can reverse it.",
+      },
+      {
+        question: "Can Base64 be decoded without a key?",
+        answer:
+          "Yes. Base64 uses a public reversible mapping and never requires a secret key.",
+      },
+      {
+        question: "Does Base64 work with Unicode?",
+        answer:
+          "Yes. DevUtilsHub converts text through UTF-8 bytes, preserving accented characters, emoji, and non-Latin scripts.",
+      },
+      {
+        question: "Does Base64 increase the size of data?",
+        answer:
+          "Yes. Base64 output is generally about 33% larger than the original bytes, with small variations from padding.",
+      },
+      {
+        question: "Is my input uploaded?",
+        answer:
+          "No. Encoding and decoding happen entirely in your browser. Your input is never uploaded or sent to DevUtilsHub.",
+      },
+    ],
+  },
+  {
+    slug: "url-encode-decode",
+    title: "URL Encode / Decode",
+    description:
+      "Encode and decode URL components locally without sending content to a server.",
+    category: "encoding",
+    icon: "wrench",
+    keywords: ["url", "encode", "decode", "percent", "uri"],
+    featured: false,
+    popular: false,
     browserOnly: true,
     availability: "coming-soon",
     badges: ["browser-only", "privacy-first"],
