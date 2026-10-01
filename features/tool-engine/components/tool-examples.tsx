@@ -14,6 +14,7 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
   const hasPairedInputs = examples.some(
     (example) => example.secondaryInput !== undefined,
   );
+  const hasModes = examples.some((example) => example.mode !== undefined);
 
   return (
     <section className="mt-20 sm:mt-24" aria-labelledby="tool-examples-title">
@@ -35,7 +36,11 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
       <div
         className={cn(
           "mt-8 grid gap-4 sm:grid-cols-2",
-          hasPairedInputs ? "lg:grid-cols-3" : "lg:grid-cols-5",
+          hasPairedInputs
+            ? "lg:grid-cols-3"
+            : hasModes
+              ? "lg:grid-cols-4"
+              : "lg:grid-cols-5",
         )}
       >
         {examples.map((example) => (
@@ -62,6 +67,9 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
                     >
                       {example.kind}
                     </Badge>
+                  ) : null}
+                  {example.mode ? (
+                    <Badge variant="outline">{example.mode}</Badge>
                   ) : null}
                 </div>
                 <ArrowDownToLine

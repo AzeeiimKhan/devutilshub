@@ -15,6 +15,7 @@ export interface ToolExample {
   input: string;
   secondaryInput?: string;
   kind?: "valid" | "invalid";
+  mode?: "encode" | "decode";
 }
 
 export interface ToolCommonMistake {
