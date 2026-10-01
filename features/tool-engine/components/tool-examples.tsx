@@ -2,6 +2,7 @@ import { ArrowDownToLine } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import type { ToolExample } from "@/types/tool";
 
 interface ToolExamplesProps {
@@ -10,6 +11,10 @@ interface ToolExamplesProps {
 }
 
 export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
+  const hasPairedInputs = examples.some(
+    (example) => example.secondaryInput !== undefined,
+  );
+
   return (
     <section className="mt-20 sm:mt-24" aria-labelledby="tool-examples-title">
       <div className="max-w-2xl">
@@ -27,7 +32,12 @@ export function ToolExamples({ examples, onSelect }: ToolExamplesProps) {
           the network.
         </p>
       </div>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div
+        className={cn(
+          "mt-8 grid gap-4 sm:grid-cols-2",
+          hasPairedInputs ? "lg:grid-cols-3" : "lg:grid-cols-5",
+        )}
+      >
         {examples.map((example) => (
           <button
             key={example.id}

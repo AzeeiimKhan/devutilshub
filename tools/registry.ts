@@ -238,19 +238,121 @@ export const tools: ToolMetadata[] = [
     slug: "json-compare",
     title: "JSON Compare",
     description:
-      "Compare two JSON documents and review structural differences side by side.",
+      "Compare two JSON documents structurally in your browser with local processing and no uploads.",
     category: "json",
     icon: "compare",
     keywords: ["json", "compare", "diff", "difference"],
     featured: true,
     popular: false,
     browserOnly: true,
-    availability: "coming-soon",
+    availability: "available",
     badges: ["browser-only", "privacy-first"],
-    examples: [],
-    commonMistakes: [],
-    relatedTools: [],
-    faq: [],
+    examples: [
+      {
+        id: "no-changes",
+        title: "No changes",
+        description:
+          "Equivalent objects with different formatting and key order.",
+        input: '{\n  "name": "John",\n  "age": 24\n}',
+        secondaryInput: '{"age":24,"name":"John"}',
+      },
+      {
+        id: "changed-property",
+        title: "Changed property",
+        description: "A primitive value changes between documents.",
+        input: '{"name":"John","age":24}',
+        secondaryInput: '{"name":"John","age":25}',
+      },
+      {
+        id: "added-property",
+        title: "Added property",
+        description: "JSON B introduces a property that is absent from A.",
+        input: '{"name":"John"}',
+        secondaryInput: '{"name":"John","age":24}',
+      },
+      {
+        id: "removed-property",
+        title: "Removed property",
+        description: "JSON B no longer contains a property from A.",
+        input: '{"name":"John","age":24}',
+        secondaryInput: '{"name":"John"}',
+      },
+      {
+        id: "nested-change",
+        title: "Nested change",
+        description: "A deeply nested city value changes.",
+        input: '{"user":{"name":"John","address":{"city":"Mumbai"}}}',
+        secondaryInput: '{"user":{"name":"John","address":{"city":"Delhi"}}}',
+      },
+      {
+        id: "array-change",
+        title: "Array change",
+        description: "An array item changes at the same index.",
+        input: '{"items":["A","B","C"]}',
+        secondaryInput: '{"items":["A","X","C","D"]}',
+      },
+    ],
+    commonMistakes: [
+      {
+        title: "Structural, not textual",
+        description:
+          "Whitespace and formatting differences do not count as changes.",
+      },
+      {
+        title: "Valid JSON required",
+        description:
+          "Both inputs must parse successfully before comparison can begin.",
+      },
+      {
+        title: "Property order is ignored",
+        description:
+          "Objects with the same keys and values are equal regardless of key order.",
+      },
+      {
+        title: "Arrays use indexes",
+        description:
+          "V1 compares array values at the same index and does not detect moved items.",
+        example: "items[1]",
+      },
+      {
+        title: "Not a text diff",
+        description:
+          "The tool compares parsed JSON values rather than lines or characters.",
+      },
+    ],
+    relatedTools: [
+      "json-formatter",
+      "json-validator",
+      "base64-encode-decode",
+      "jwt-decoder",
+    ],
+    faq: [
+      {
+        question: "How does JSON comparison work?",
+        answer:
+          "Both inputs are parsed, then their objects, arrays, and values are compared recursively. Results identify added, removed, and changed paths.",
+      },
+      {
+        question: "Does formatting or whitespace affect the comparison?",
+        answer:
+          "No. Whitespace, indentation, and object property order are ignored because comparison happens on parsed JSON values.",
+      },
+      {
+        question: "Can I compare nested JSON?",
+        answer:
+          "Yes. Nested objects and arrays are compared recursively, and differences use readable paths such as user.address.city.",
+      },
+      {
+        question: "How are arrays compared?",
+        answer:
+          "Arrays are compared by index in V1. The tool does not attempt to infer moved or matching items.",
+      },
+      {
+        question: "Is my JSON uploaded?",
+        answer:
+          "No. Parsing and comparison happen entirely in your browser. Neither JSON document is uploaded or sent to DevUtilsHub.",
+      },
+    ],
   },
   {
     slug: "base64-encode-decode",
