@@ -7,6 +7,7 @@ import { JsonFormatterTool } from "@/features/json-formatter/components/json-for
 import { JsonValidatorTool } from "@/features/json-validator/components/json-validator-tool";
 import { JwtDecoderTool } from "@/features/jwt-decoder/components/jwt-decoder-tool";
 import { UrlEncodingTool } from "@/features/url-encoding/components/url-encoding-tool";
+import { UuidGeneratorTool } from "@/features/uuid-generator/components/uuid-generator-tool";
 import {
   RelatedTools,
   ToolCommonMistakes,
@@ -73,6 +74,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
           <UrlEncodingTool tool={tool} />
         ) : null}
         {tool.slug === "jwt-decoder" ? <JwtDecoderTool tool={tool} /> : null}
+        {tool.slug === "uuid-generator" ? <UuidGeneratorTool /> : null}
         <ToolCommonMistakes
           mistakes={tool.commonMistakes}
           title={
@@ -86,7 +88,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                     ? "URL encoding essentials"
                     : tool.slug === "jwt-decoder"
                       ? "JWT decoding essentials"
-                      : undefined
+                      : tool.slug === "uuid-generator"
+                        ? "UUID generation essentials"
+                        : undefined
           }
         />
         <RelatedTools slugs={tool.relatedTools} />
@@ -103,7 +107,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                     ? "About URL encoding"
                     : tool.slug === "jwt-decoder"
                       ? "About JWT decoding"
-                      : undefined
+                      : tool.slug === "uuid-generator"
+                        ? "About UUID v4"
+                        : undefined
           }
         />
       </div>
