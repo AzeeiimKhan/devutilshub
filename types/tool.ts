@@ -2,7 +2,13 @@ export type ToolCategory =
   "json" | "encoding" | "authentication-developer" | "utilities";
 
 export type ToolIconName =
-  "binary" | "braces" | "check-braces" | "compare" | "key" | "wrench";
+  | "binary"
+  | "braces"
+  | "check-braces"
+  | "compare"
+  | "fingerprint"
+  | "key"
+  | "wrench";
 
 export type ToolAvailability = "available" | "coming-soon";
 

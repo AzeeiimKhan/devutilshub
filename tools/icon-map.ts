@@ -2,6 +2,7 @@ import {
   BadgeCheck,
   Binary,
   Braces,
+  Fingerprint,
   GitCompareArrows,
   KeyRound,
   Wrench,
@@ -15,6 +16,7 @@ export const toolIconMap: Record<ToolIconName, LucideIcon> = {
   braces: Braces,
   "check-braces": BadgeCheck,
   compare: GitCompareArrows,
+  fingerprint: Fingerprint,
   key: KeyRound,
   wrench: Wrench,
 };

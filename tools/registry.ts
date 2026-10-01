@@ -776,6 +776,93 @@ export const tools: ToolMetadata[] = [
       },
     ],
   },
+  {
+    slug: "uuid-generator",
+    title: "UUID Generator",
+    description:
+      "Generate random UUID v4 identifiers locally with browser-native cryptography and no uploads.",
+    category: "utilities",
+    icon: "fingerprint",
+    keywords: ["uuid", "uuid v4", "guid", "identifier", "random"],
+    featured: false,
+    popular: true,
+    browserOnly: true,
+    availability: "available",
+    badges: ["browser-only", "privacy-first"],
+    examples: [],
+    commonMistakes: [
+      {
+        title: "Identifiers, not secrets",
+        description:
+          "UUIDs identify records and resources, but should not be treated as passwords or access tokens.",
+      },
+      {
+        title: "Random UUID v4",
+        description:
+          "Version 4 UUIDs use random bits rather than timestamps or sequential values.",
+        example: "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",
+      },
+      {
+        title: "Collisions are negligible, not impossible",
+        description:
+          "UUID v4 has an enormous address space, making accidental collisions statistically negligible for ordinary use.",
+      },
+      {
+        title: "No embedded metadata",
+        description:
+          "A UUID v4 does not encode a creation time, user identity, or database sequence.",
+      },
+      {
+        title: "Not authentication",
+        description:
+          "Possessing or guessing an identifier must not grant authorization to protected data.",
+      },
+      {
+        title: "Store the canonical text form",
+        description:
+          "The familiar lowercase 8-4-4-4-12 representation is portable across systems.",
+        example: "550e8400-e29b-41d4-a716-446655440000",
+      },
+    ],
+    relatedTools: [
+      "json-formatter",
+      "base64",
+      "url-encode-decode",
+      "jwt-decoder",
+    ],
+    faq: [
+      {
+        question: "What is a UUID?",
+        answer:
+          "A UUID is a 128-bit identifier designed to be unique across systems without requiring a central numbering service.",
+      },
+      {
+        question: "Which UUID version does this tool generate?",
+        answer:
+          "DevUtilsHub generates UUID version 4 values using the browser-native crypto.randomUUID() API.",
+      },
+      {
+        question: "Can two UUID v4 values collide?",
+        answer:
+          "A collision is theoretically possible, but the probability is statistically negligible for typical application workloads.",
+      },
+      {
+        question: "Are UUIDs secure secrets?",
+        answer:
+          "No. UUIDs are identifiers, not passwords, authentication credentials, encryption, or authorization controls.",
+      },
+      {
+        question: "Are UUIDs generated locally?",
+        answer:
+          "Yes. Generation happens through your browser's cryptographic API. No UUID request or generated value is sent to DevUtilsHub.",
+      },
+      {
+        question: "Why can I generate up to 100 at once?",
+        answer:
+          "Batch generation is convenient for fixtures, test data, imports, and other workflows that need several independent identifiers.",
+      },
+    ],
+  },
 ];
 
 export const featuredTools = tools.filter((tool) => tool.featured);
