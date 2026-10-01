@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonCompareTool } from "@/features/json-compare/components/json-compare-tool";
 import { JsonFormatterTool } from "@/features/json-formatter/components/json-formatter-tool";
 import { JsonValidatorTool } from "@/features/json-validator/components/json-validator-tool";
 import {
@@ -63,17 +64,26 @@ export default async function ToolPage({ params }: ToolPageProps) {
         {tool.slug === "json-validator" ? (
           <JsonValidatorTool tool={tool} />
         ) : null}
+        {tool.slug === "json-compare" ? <JsonCompareTool tool={tool} /> : null}
         <ToolCommonMistakes
           mistakes={tool.commonMistakes}
           title={
-            tool.slug === "json-validator" ? "Common JSON errors" : undefined
+            tool.slug === "json-validator"
+              ? "Common JSON errors"
+              : tool.slug === "json-compare"
+                ? "Comparison notes"
+                : undefined
           }
         />
         <RelatedTools slugs={tool.relatedTools} />
         <ToolFAQ
           items={tool.faq}
           title={
-            tool.slug === "json-validator" ? "About JSON validation" : undefined
+            tool.slug === "json-validator"
+              ? "About JSON validation"
+              : tool.slug === "json-compare"
+                ? "About JSON comparison"
+                : undefined
           }
         />
       </div>
