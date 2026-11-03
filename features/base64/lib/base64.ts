@@ -87,7 +87,12 @@ export function decodeBase64(input: string): Base64Result {
     const bytes = Uint8Array.from(binary, (character) =>
       character.charCodeAt(0),
     );
-    const output = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    // Preserve a leading U+FEFF character as text so encoding and decoding
+    // round-trip the exact input instead of silently stripping it as a BOM.
+    const output = new TextDecoder("utf-8", {
+      fatal: true,
+      ignoreBOM: true,
+    }).decode(bytes);
 
     return { ok: true, output };
   } catch {

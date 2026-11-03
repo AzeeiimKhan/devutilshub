@@ -20,14 +20,26 @@ export type JsonValidationResult =
 
 function jsonDepth(value: unknown): number {
   if (value === null || typeof value !== "object") return 0;
+  const pending: Array<{ value: object; depth: number }> = [
+    { value, depth: 1 },
+  ];
+  let maximum = 0;
 
-  const children = Array.isArray(value)
-    ? value
-    : Object.values(value as Record<string, unknown>);
+  while (pending.length > 0) {
+    const current = pending.pop()!;
+    maximum = Math.max(maximum, current.depth);
+    const children = Array.isArray(current.value)
+      ? current.value
+      : Object.values(current.value);
 
-  if (children.length === 0) return 1;
+    for (const child of children) {
+      if (child !== null && typeof child === "object") {
+        pending.push({ value: child, depth: current.depth + 1 });
+      }
+    }
+  }
 
-  return 1 + Math.max(...children.map(jsonDepth));
+  return maximum;
 }
 
 function structureOf(value: unknown): JsonStructure {
