@@ -56,7 +56,7 @@ export function Navbar() {
               aria-label="Mobile navigation"
             >
               <Link
-                href="/#featured-tools"
+                href="/#all-tools"
                 className="text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:ring-ring flex rounded-lg px-3 py-2.5 text-sm outline-none focus-visible:ring-2"
               >
                 Tools

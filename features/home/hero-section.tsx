@@ -4,6 +4,7 @@ import { SearchField } from "@/components/shared/search-field";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/metadata/site";
+import { availableTools } from "@/tools/registry";
 
 export function HeroSection() {
   return (
@@ -34,7 +35,7 @@ export function HeroSection() {
 
           <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button size="lg" asChild>
-              <a href="#featured-tools">
+              <a href="#all-tools">
                 Browse tools
                 <ArrowDown aria-hidden="true" />
               </a>
@@ -50,7 +51,7 @@ export function HeroSection() {
           {[
             ["0", "required uploads"],
             ["100%", "browser-based"],
-            ["Always", "privacy-first"],
+            [String(availableTools.length), "available tools"],
           ].map(([value, label]) => (
             <div key={label} className="px-5 py-4 text-center">
               <p className="text-foreground font-mono text-sm font-semibold">

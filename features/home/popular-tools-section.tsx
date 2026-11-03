@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, Laptop } from "lucide-react";
 
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -23,31 +24,38 @@ export function PopularToolsSection() {
               return (
                 <li
                   key={tool.slug}
-                  className="group border-border flex items-center gap-4 border-b p-4 last:border-b-0 sm:p-5"
+                  className="border-border border-b last:border-b-0"
                 >
-                  <span className="text-muted-foreground hidden w-7 font-mono text-xs sm:block">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="border-border bg-secondary text-muted-foreground group-hover:text-primary flex size-10 shrink-0 items-center justify-center rounded-lg border">
-                    <Icon className="size-4" aria-hidden="true" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-foreground font-mono text-sm font-semibold break-words">
-                      {tool.title}
-                    </h3>
-                    <p className="text-muted-foreground mt-1 hidden truncate text-sm sm:block">
-                      {tool.description}
-                    </p>
-                  </div>
-                  <Badge variant="outline" className="hidden lg:flex">
-                    <Laptop className="size-3" aria-hidden="true" />
-                    Local
-                  </Badge>
-                  <Badge variant="secondary">Soon</Badge>
-                  <ArrowRight
-                    className="text-muted-foreground/50 hidden size-4 sm:block"
-                    aria-hidden="true"
-                  />
+                  <Link
+                    href={`/tools/${tool.slug}`}
+                    className="group hover:bg-accent focus-visible:ring-ring flex items-center gap-4 p-4 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset motion-reduce:transition-none sm:p-5"
+                  >
+                    <span className="text-muted-foreground hidden w-7 font-mono text-xs sm:block">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="border-border bg-secondary text-muted-foreground group-hover:text-primary flex size-10 shrink-0 items-center justify-center rounded-lg border">
+                      <Icon className="size-4" aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-foreground font-mono text-sm font-semibold break-words">
+                        {tool.title}
+                      </h3>
+                      <p className="text-muted-foreground mt-1 hidden truncate text-sm sm:block">
+                        {tool.description}
+                      </p>
+                    </div>
+                    {tool.browserOnly ? (
+                      <Badge variant="outline" className="hidden lg:flex">
+                        <Laptop className="size-3" aria-hidden="true" />
+                        Local
+                      </Badge>
+                    ) : null}
+                    <Badge>Available</Badge>
+                    <ArrowRight
+                      className="text-muted-foreground/50 hidden size-4 sm:block"
+                      aria-hidden="true"
+                    />
+                  </Link>
                 </li>
               );
             })}

@@ -9,6 +9,7 @@ const footerGroups = [
   {
     title: "Product",
     links: [
+      { label: "All tools", href: "/#all-tools" },
       { label: "Featured tools", href: "/#featured-tools" },
       { label: "Popular tools", href: "/#popular-tools" },
       { label: "Why DevUtilsHub", href: "/#why-devutilshub" },
@@ -18,7 +19,7 @@ const footerGroups = [
     title: "Categories",
     links: categories.map((category) => ({
       label: category.title,
-      href: `/#category-${category.id}`,
+      href: `/#tools-${category.id}`,
     })),
   },
   {

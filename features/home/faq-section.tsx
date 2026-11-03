@@ -1,27 +1,27 @@
 import { Plus } from "lucide-react";
 
 import { SectionHeading } from "@/components/shared/section-heading";
+import { availableTools } from "@/tools/registry";
 
 const questions = [
   {
     question: "Does DevUtilsHub upload my data?",
     answer:
-      "No. The utilities are designed to process input locally in your browser. The first release will not require a backend for tool processing.",
+      "No. Tool input is processed locally in your browser and is not uploaded to a server.",
   },
   {
     question: "Do I need an account?",
     answer:
-      "No. The core developer utilities will be available without signing in or creating an account.",
+      "No. All available tools work without signing in or creating an account.",
   },
   {
-    question: "Which tools are coming first?",
-    answer:
-      "The initial set is planned around JSON formatting, JSON validation, JSON comparison, and Base64 encoding and decoding.",
+    question: "Which tools are available?",
+    answer: `There are ${availableTools.length} available tools: ${availableTools.map((tool) => tool.title).join(", ")}. Browse the complete catalog above to open any tool.`,
   },
   {
-    question: "Will the tools work on mobile devices?",
+    question: "Do the tools work on mobile devices?",
     answer:
-      "Yes. The interface is being designed for desktop, tablet, and mobile, though larger data workflows will naturally be more comfortable on a wider screen.",
+      "Yes. The interface supports desktop, tablet, and mobile. Larger data workflows are more comfortable on a wider screen.",
   },
 ] as const;
 

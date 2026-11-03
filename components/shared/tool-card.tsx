@@ -13,14 +13,15 @@ import type { ToolMetadata } from "@/types/tool";
 
 interface ToolCardProps {
   tool: ToolMetadata;
+  id?: string;
 }
 
-export function ToolCard({ tool }: ToolCardProps) {
+export function ToolCard({ tool, id }: ToolCardProps) {
   const Icon = toolIconMap[tool.icon];
 
   const content = (
     <Card
-      id={`tool-${tool.slug}`}
+      id={id ?? `tool-${tool.slug}`}
       tabIndex={-1}
       className="group hover:border-primary/35 focus-visible:ring-ring relative h-full overflow-hidden transition-colors duration-200 outline-none focus-visible:ring-2 motion-reduce:transition-none"
     >

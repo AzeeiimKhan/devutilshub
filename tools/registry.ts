@@ -1096,8 +1096,11 @@ export const tools: ToolMetadata[] = [
   },
 ];
 
-export const featuredTools = tools.filter((tool) => tool.featured);
-export const popularTools = tools.filter((tool) => tool.popular);
+export const availableTools = tools.filter(
+  (tool) => tool.availability === "available",
+);
+export const featuredTools = availableTools.filter((tool) => tool.featured);
+export const popularTools = availableTools.filter((tool) => tool.popular);
 
 export function getToolBySlug(slug: string) {
   return tools.find((tool) => tool.slug === slug);
