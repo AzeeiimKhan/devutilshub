@@ -8,14 +8,14 @@ import { popularTools } from "@/tools/registry";
 export function PopularToolsSection() {
   return (
     <section id="popular-tools" className="scroll-mt-24 py-20 sm:py-24">
-      <div className="container-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div className="container-shell grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <SectionHeading
           className="lg:sticky lg:top-28 lg:self-start"
           eyebrow="Popular"
           title="Quick access to familiar workflows."
           description="A streamlined starting point for the tools developers reach for most often."
         />
-        <div>
+        <div className="min-w-0">
           <ol className="border-border bg-card overflow-hidden rounded-xl border">
             {popularTools.map((tool, index) => {
               const Icon = toolIconMap[tool.icon];
@@ -32,7 +32,7 @@ export function PopularToolsSection() {
                     <Icon className="size-4" aria-hidden="true" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-foreground truncate font-mono text-sm font-semibold">
+                    <h3 className="text-foreground font-mono text-sm font-semibold break-words">
                       {tool.title}
                     </h3>
                     <p className="text-muted-foreground mt-1 hidden truncate text-sm sm:block">

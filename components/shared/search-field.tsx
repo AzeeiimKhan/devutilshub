@@ -27,6 +27,7 @@ export function SearchField({
   const resultsId = `${inputId}-results`;
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const results = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -44,6 +45,7 @@ export function SearchField({
   function selectTool(tool: ToolMetadata) {
     setQuery(tool.title);
     setIsOpen(false);
+    setActiveIndex(-1);
 
     if (tool.availability === "available") {
       router.push(`/tools/${tool.slug}`);
@@ -83,10 +85,30 @@ export function SearchField({
         onChange={(event) => {
           setQuery(event.target.value);
           setIsOpen(true);
+          setActiveIndex(-1);
         }}
         onFocus={() => setIsOpen(true)}
         onKeyDown={(event) => {
-          if (event.key === "Escape") setIsOpen(false);
+          if (event.key === "Escape") {
+            setIsOpen(false);
+            setActiveIndex(-1);
+          } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            if (results.length === 0) return;
+            event.preventDefault();
+            setIsOpen(true);
+            setActiveIndex((current) =>
+              event.key === "ArrowDown"
+                ? (current + 1) % results.length
+                : (current <= 0 ? results.length : current) - 1,
+            );
+          } else if (
+            event.key === "Enter" &&
+            showResults &&
+            results.length > 0
+          ) {
+            event.preventDefault();
+            selectTool(results[activeIndex >= 0 ? activeIndex : 0]);
+          }
         }}
         placeholder={
           variant === "compact" ? "Search tools" : "Search developer tools..."
@@ -94,8 +116,15 @@ export function SearchField({
         autoComplete="off"
         role="combobox"
         aria-autocomplete="list"
-        aria-expanded={showResults}
-        aria-controls={resultsId}
+        aria-expanded={showResults && results.length > 0}
+        aria-controls={
+          showResults && results.length > 0 ? resultsId : undefined
+        }
+        aria-activedescendant={
+          showResults && activeIndex >= 0
+            ? `${resultsId}-${results[activeIndex].slug}`
+            : undefined
+        }
         className={cn(
           "bg-card relative",
           variant === "compact"
@@ -111,20 +140,26 @@ export function SearchField({
 
       {showResults ? (
         <div
-          id={resultsId}
+          id={`${resultsId}-panel`}
           className="border-border bg-popover text-popover-foreground absolute top-full right-0 left-0 z-50 mt-2 overflow-hidden rounded-xl border p-1.5 shadow-2xl shadow-black/25"
         >
           {results.length > 0 ? (
-            <ul aria-label="Matching tools">
-              {results.map((tool) => {
+            <ul id={resultsId} role="listbox" aria-label="Matching tools">
+              {results.map((tool, index) => {
                 const Icon = toolIconMap[tool.icon];
 
                 return (
-                  <li key={tool.slug}>
+                  <li key={tool.slug} role="presentation">
                     <button
                       type="button"
+                      role="option"
+                      id={`${resultsId}-${tool.slug}`}
+                      aria-selected={activeIndex === index}
                       onClick={() => selectTool(tool)}
-                      className="hover:bg-accent focus-visible:bg-accent focus-visible:ring-ring flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left outline-none focus-visible:ring-2"
+                      className={cn(
+                        "hover:bg-accent focus-visible:bg-accent focus-visible:ring-ring flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left outline-none focus-visible:ring-2",
+                        activeIndex === index && "bg-accent",
+                      )}
                     >
                       <Icon
                         className="text-primary size-4 shrink-0"
@@ -150,7 +185,10 @@ export function SearchField({
               })}
             </ul>
           ) : (
-            <p className="text-muted-foreground px-3 py-4 text-center text-sm">
+            <p
+              role="status"
+              className="text-muted-foreground px-3 py-4 text-center text-sm"
+            >
               No tools match “{query}”.
             </p>
           )}

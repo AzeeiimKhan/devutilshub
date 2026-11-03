@@ -5,7 +5,9 @@ Developer tools that never leave your browser.
 DevUtilsHub is a privacy-first developer utility interface built with Next.js,
 TypeScript, Tailwind CSS, and shadcn/ui conventions. This repository currently
 contains the production-ready application shell, metadata-driven tool catalog,
-and a reusable Tool Engine. JSON Formatter is the first implemented utility.
+and a reusable Tool Engine with nine implemented utilities: JSON Formatter,
+JSON Validator, JSON Compare, Base64 Encode / Decode, URL Encode / Decode,
+JWT Decoder, UUID Generator, Timestamp Converter, and Hash Generator.
 
 ## Local development
 
@@ -32,7 +34,10 @@ npm run build
 - Typed tool metadata registry
 - Dynamic `/tools/[slug]` routing with a custom not-found state
 - Reusable tool-page shell, workspace, examples, related tools, and FAQ sections
-- Local-only JSON formatting, minification, validation, copying, and downloads
+- Local-only JSON formatting, minification, validation, and comparison
+- Base64 and URL component encoding and decoding, and JWT inspection
+- UUID v4 generation, timestamp conversion, and SHA-256, SHA-1, and MD5 hashing
+- Copying, downloads, examples, and keyboard shortcuts where applicable
 - Local theme preference handling
 - No backend, authentication, database, uploads, or external processing
 
