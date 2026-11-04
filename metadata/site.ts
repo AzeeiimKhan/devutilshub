@@ -7,7 +7,7 @@ export const siteConfig = {
     github: "https://github.com",
   },
   navigation: [
-    { label: "Tools", href: "#featured-tools" },
-    { label: "Categories", href: "#categories" },
+    { label: "Tools", href: "/#all-tools" },
+    { label: "Categories", href: "/#categories" },
   ],
 } as const;

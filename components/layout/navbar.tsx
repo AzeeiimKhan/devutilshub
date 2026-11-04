@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GitFork, Menu, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,7 @@ export function Navbar() {
           </div>
           {siteConfig.navigation.map((item) => (
             <Button key={item.href} variant="ghost" size="sm" asChild>
-              <a href={item.href}>{item.label}</a>
+              <Link href={item.href}>{item.label}</Link>
             </Button>
           ))}
           <Button variant="ghost" size="sm" asChild>
@@ -40,9 +41,9 @@ export function Navbar() {
 
         <div className="ml-auto flex items-center gap-1 md:hidden">
           <Button variant="ghost" size="icon" asChild>
-            <a href="#tool-search" aria-label="Search tools">
+            <Link href="/#tool-search" aria-label="Search tools">
               <Search aria-hidden="true" />
-            </a>
+            </Link>
           </Button>
           <ThemeToggle />
           <details className="group relative [&>summary::-webkit-details-marker]:hidden">
@@ -54,18 +55,18 @@ export function Navbar() {
               className="border-border bg-popover text-popover-foreground absolute top-12 right-0 w-60 rounded-xl border p-2 shadow-2xl shadow-black/25"
               aria-label="Mobile navigation"
             >
-              <a
-                href="#featured-tools"
+              <Link
+                href="/#all-tools"
                 className="text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:ring-ring flex rounded-lg px-3 py-2.5 text-sm outline-none focus-visible:ring-2"
               >
                 Tools
-              </a>
-              <a
-                href="#categories"
+              </Link>
+              <Link
+                href="/#categories"
                 className="text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:ring-ring flex rounded-lg px-3 py-2.5 text-sm outline-none focus-visible:ring-2"
               >
                 Categories
-              </a>
+              </Link>
               <a
                 href={siteConfig.links.github}
                 target="_blank"

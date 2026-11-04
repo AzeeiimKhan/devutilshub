@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { Logo } from "@/components/shared/logo";
@@ -8,23 +9,24 @@ const footerGroups = [
   {
     title: "Product",
     links: [
-      { label: "Featured tools", href: "#featured-tools" },
-      { label: "Popular tools", href: "#popular-tools" },
-      { label: "Why DevUtilsHub", href: "#why-devutilshub" },
+      { label: "All tools", href: "/#all-tools" },
+      { label: "Featured tools", href: "/#featured-tools" },
+      { label: "Popular tools", href: "/#popular-tools" },
+      { label: "Why DevUtilsHub", href: "/#why-devutilshub" },
     ],
   },
   {
     title: "Categories",
     links: categories.map((category) => ({
       label: category.title,
-      href: `#category-${category.id}`,
+      href: `/#tools-${category.id}`,
     })),
   },
   {
     title: "Resources",
     links: [
-      { label: "FAQ", href: "#faq" },
-      { label: "Privacy principles", href: "#why-devutilshub" },
+      { label: "FAQ", href: "/#faq" },
+      { label: "Privacy principles", href: "/#why-devutilshub" },
     ],
   },
 ] as const;
@@ -51,12 +53,12 @@ export function Footer() {
                 <ul className="mt-4 space-y-3">
                   {group.links.map((link) => (
                     <li key={link.label}>
-                      <a
+                      <Link
                         href={link.href}
                         className="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm text-sm transition-colors outline-none focus-visible:ring-2"
                       >
                         {link.label}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -79,7 +81,7 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <span className="text-muted-foreground/60 text-sm">
+                  <span className="text-muted-foreground text-sm">
                     About — soon
                   </span>
                 </li>

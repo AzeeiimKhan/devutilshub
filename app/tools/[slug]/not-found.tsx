@@ -21,7 +21,7 @@ export default function ToolNotFound() {
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild>
-            <Link href="/#featured-tools">
+            <Link href="/#all-tools">
               <ArrowLeft aria-hidden="true" />
               Browse available tools
             </Link>

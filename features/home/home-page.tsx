@@ -1,3 +1,4 @@
+import { AllToolsSection } from "@/features/home/all-tools-section";
 import { BenefitsSection } from "@/features/home/benefits-section";
 import { CategoriesSection } from "@/features/home/categories-section";
 import { FaqSection } from "@/features/home/faq-section";
@@ -11,6 +12,7 @@ export function HomePage() {
       <HeroSection />
       <FeaturedToolsSection />
       <CategoriesSection />
+      <AllToolsSection />
       <PopularToolsSection />
       <BenefitsSection />
       <FaqSection />

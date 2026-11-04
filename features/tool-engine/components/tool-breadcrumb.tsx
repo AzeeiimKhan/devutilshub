@@ -23,7 +23,7 @@ export function ToolBreadcrumb({ toolTitle }: ToolBreadcrumbProps) {
         </li>
         <li>
           <Link
-            href="/#featured-tools"
+            href="/#all-tools"
             className="hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors outline-none focus-visible:ring-2 motion-reduce:transition-none"
           >
             Tools

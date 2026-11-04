@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import {
   ArrowDownToLine,
   ArrowLeftRight,
@@ -35,6 +35,8 @@ import {
 import { cn } from "@/lib/utils";
 
 type ConversionMode = "timestamp-to-date" | "date-to-timestamp";
+const subscribeTimezone = () => () => {};
+const serverTimezone = () => "Local timezone";
 type Status = {
   tone: "success" | "error" | "info";
   message: string;
@@ -150,13 +152,15 @@ export function TimestampConverterTool() {
   const [unit, setUnit] = useState<TimestampUnit>("seconds");
   const [dateInput, setDateInput] = useState("");
   const [dateTimezone, setDateTimezone] = useState<DateInputTimezone>("local");
-  const [browserTimezone, setBrowserTimezone] = useState("Local timezone");
+  const browserTimezone = useSyncExternalStore(
+    subscribeTimezone,
+    getBrowserTimezone,
+    serverTimezone,
+  );
   const [result, setResult] = useState<TimestampConversion | null>(null);
   const [status, setStatus] = useState<Status>(null);
   const timestampInputRef = useRef<HTMLInputElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => setBrowserTimezone(getBrowserTimezone()), []);
 
   function convert() {
     const conversion =
@@ -226,7 +230,9 @@ export function TimestampConverterTool() {
 
   function selectExample(example: (typeof examples)[number]) {
     const value =
-      example.value === "current" ? String(Date.now()) : example.value;
+      example.value === "current"
+        ? String(new Date().getTime())
+        : example.value;
     setMode("timestamp-to-date");
     setUnit(example.unit);
     setTimestampInput(value);
@@ -410,7 +416,7 @@ export function TimestampConverterTool() {
                     setResult(null);
                     setStatus(null);
                   }}
-                  className="border-input bg-background text-foreground focus-visible:ring-ring mt-3 h-12 w-full min-w-0 rounded-lg border px-3 font-mono text-xs [color-scheme:dark] outline-none focus-visible:ring-2 sm:px-4 sm:text-sm"
+                  className="border-input bg-background text-foreground focus-visible:ring-ring mt-3 h-12 w-full min-w-0 rounded-lg border px-3 font-mono text-xs [color-scheme:light] outline-none focus-visible:ring-2 sm:px-4 sm:text-sm dark:[color-scheme:dark]"
                 />
                 <fieldset className="mt-6">
                   <legend className="text-foreground font-mono text-sm font-semibold">
