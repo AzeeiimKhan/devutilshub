@@ -34,7 +34,13 @@ export function timestampToDate(
     };
   }
 
-  const milliseconds = unit === "seconds" ? timestamp * 1_000 : timestamp;
+  // Shift the decimal exponent before parsing to avoid a second rounding step
+  // (for example, Number("1.001") * 1000 is 1000.9999999999999).
+  const [coefficient, exponent = "0"] = trimmed.split(/e/i);
+  const milliseconds =
+    unit === "seconds"
+      ? Number(`${coefficient}e${Number(exponent) + 3}`)
+      : timestamp;
   if (!Number.isFinite(milliseconds)) {
     return {
       ok: false,
@@ -164,7 +170,8 @@ export function toDateTimeInputValue(
 }
 
 export function formatUtcDate(date: Date): string {
-  return `${date.toISOString().slice(0, 10)} ${date.toISOString().slice(11, 19)} UTC`;
+  const [day, time] = date.toISOString().split("T");
+  return `${day} ${time.slice(0, 8)} UTC`;
 }
 
 export function formatLocalDate(date: Date): string {

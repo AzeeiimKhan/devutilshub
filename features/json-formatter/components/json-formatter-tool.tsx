@@ -104,6 +104,7 @@ export function JsonFormatterTool({ tool }: { tool: ToolMetadata }) {
     const result = transformJson(input, mode);
 
     if (!result.ok) {
+      setOutput("");
       setStatus(errorStatus(result.error));
       return;
     }
@@ -281,7 +282,8 @@ export function JsonFormatterTool({ tool }: { tool: ToolMetadata }) {
             value={input}
             onChange={(event) => {
               setInput(event.target.value);
-              if (status?.tone === "error") setStatus(null);
+              setOutput("");
+              setStatus(null);
             }}
             onKeyDown={(event) => {
               if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {

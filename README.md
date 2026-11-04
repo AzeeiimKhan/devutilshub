@@ -25,7 +25,24 @@ npm run format:check
 npm run lint
 npm run typecheck
 npm run build
+npm run test:unit
+npm run test:e2e
 ```
+
+The unit suite covers valid and invalid inputs, Unicode, precision and range
+boundaries, large JSON arrays, reference hash values, and the supplied examples.
+The browser suite tests every page at 390, 768, and 1280 pixels, both themes,
+automated WCAG accessibility checks, navigation, keyboard interactions, tool
+results, clipboard access and denial, downloads, and 404 recovery. Tests run
+against a production build on port 3100 and check for browser errors and input
+submission over the network.
+
+Install Playwright Chromium on every platform with `npm run test:install`.
+Firefox and Safari are not covered by this configuration. See [TESTING.md](TESTING.md)
+for installation, individual specs, production-build runs, CI, and lint audit details.
+
+Run `npm test` for both suites. Browser reports are saved in `playwright-report/`,
+with JSON results and failure screenshots/traces in `test-results/`.
 
 ## Current scope
 
